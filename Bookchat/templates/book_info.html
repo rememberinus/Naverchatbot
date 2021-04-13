@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <form action="{{url_for('main.Bookinfo')}}" method="post" class="post-form my-3 ml-3">
+
+            {{ form.csrf_token }}
+
+            {{ form.title.label }}
+            {{ form.title(class='form-control') }}
+            <button type="submit" class="btn btn-primary my-2">정보 가져오기</button>
+    </form>
+</div>
+{% if book_info_list %}
+<div class="container my-3">
+    <table class="table table-hover " style="font-size: 12px" >
+        <thead>
+            <tr class="text-center thead-dark">
+                <th style="width: 10%">번호</th>
+                <th style="width: 40%">제목</th>
+                <th style="width: 40%">내용</th>
+                <th style="width: 10%">작가</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for temp in book_info_list %}
+        <tr class="text-center">
+             <td>{{ loop.index }}</td>
+             <td>{{ temp.title | safe }}</td>
+             <td>{{ temp.description | safe | shortword }}</td>
+             <td>{{ temp.author | safe | shortword }}</td>
+
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

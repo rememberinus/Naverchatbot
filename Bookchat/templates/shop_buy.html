@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div> 제품명 : {{ stitle }} </div>
+<div> 브렌드 : {{ sbrand }} </div>
+<div> 가격 : {{ slprice }} </div>
+<div> <img src={{ simage }} height="100" width="100" alt="제품이미지"></img> </div>
+<div> 주소 : {{ form.address }}</div>
+
+<form action="{{url_for('shop.buysave')}}" method="post" class="post-form my-3 ml-3">
+                 <input type="hidden" name="title" value={{stitle}}>
+                 <input type="hidden" name="brand" value={{sbrand}}>
+                 <input type="hidden" name="lprice" value={{lprice}}>
+                 <input type="hidden" name="image" value={{slprice}}>
+                 <input type="hidden" name="address" value={{form.address.data}}>
+                 <button type="submit" class="btn btn-primary my-2">구매하기</button>
+             </form>
+
+{% endblock%}

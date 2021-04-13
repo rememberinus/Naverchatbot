@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-3">
+    <table class="table table-hover " style="font-size: 12px" >
+        <thead>
+            <tr class="text-center thead-dark">
+                <th style="width: 30%">순위</th>
+                <th style="width: 70%">제목</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for temp in movie_rank_lst %}
+        <tr class="text-center">
+             <td>{{ loop.index }}</td>
+             <td>{{ temp | safe }}</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

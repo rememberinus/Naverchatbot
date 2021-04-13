@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <form action="{{url_for('movie.Movieinfo')}}" method="post" class="post-form my-3 ml-3">
+
+            {{ form.csrf_token }}
+
+            {{ form.title.label }}
+            {{ form.title(class='form-control') }}
+            <button type="submit" class="btn btn-primary my-2">정보 가져오기</button>
+    </form>
+</div>
+{% if movie_info_lst %}
+<div class="container my-3">
+    <table class="table table-hover " style="font-size: 12px" >
+        <thead>
+            <tr class="text-center thead-dark">
+                <th style="width: 10%">번호</th>
+                <th style="width: 40%">제목</th>
+                <th style="width: 20%">년도</th>
+                <th style="width: 30%">배우</th>
+                <th style="width: 10%">평점</th>
+                <th style="width: 10%">이미지</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for temp in movie_info_lst %}
+        <tr class="text-center">
+             <td>{{ loop.index }}</td>
+             <td>{{ temp.title | safe | barhide}}</td>
+             <td>{{ temp.pubDate | safe | barhide}}</td>
+             <td>{{ temp.actor | safe | shortword| barhide }}</td>
+             <td>{{ temp.userRating | safe | shortword | barhide}}</td>
+             <td><img src={{ temp.image }} alt="My Image"></img></td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <form action="{{url_for('shop.shopinfo')}}" method="post" class="post-form my-3 ml-3">
+
+            {{ form.csrf_token }}
+
+            {{ form.name.label }}
+            {{ form.name(class='form-control') }}
+            <button type="submit" class="btn btn-primary my-2">정보 가져오기</button>
+    </form>
+</div>
+{% if shop_info_lst %}
+<div class="container my-3">
+    <table class="table table-hover " style="font-size: 12px" >
+        <thead>
+            <tr class="text-center thead-dark">
+                <th style="width: 10%">번호</th>
+                <th style="width: 30%">제품명</th>
+                <th style="width: 10%">브렌드</th>
+                <th style="width: 10%">최저가</th>
+                <th style="width: 10%">최고가</th>
+                <th style="width: 10%">이미지</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for temp in shop_info_lst %}
+        <tr class="text-center">
+             <td>{{ loop.index }}</td>
+             <td>{{ temp.title}}</td>
+             <td>{{ temp.brand}}</td>
+             <td>{{ temp.lprice}}</td>
+             <td>{{ temp.hprice}}</td>
+             <td><img src={{ temp.image }} height="100" width="100" alt="제품이미지"></img></td>
+             <td> <form action="{{url_for('shop.shopbuy')}}" method="post" class="post-form my-3 ml-3">
+                 <input type="text" name="title" maxlength="100" value={{temp.title}}>
+                 <input type="text" name="brand" maxlength="100" value={{temp.brand}}>
+                 <input type="text" name="lprice" maxlength="100" value={{temp.lprice}}>
+                 <input type="text" name="image" maxlength="100" value={{temp.image}}>
+                 <button type="submit" class="btn btn-primary my-2">구매하기</button>
+             </form></td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
